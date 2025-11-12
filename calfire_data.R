@@ -76,7 +76,7 @@ basemap_ggplot(six_rivers) + geom_sf(data=six_rivers)
 # other option - static - ggspatial package 
 library(ggspatial)
 # plot like regular ggplot 
-ggplot() +
+plot_map <- ggplot() +
   annotation_map_tile(type = "osm", zoom=10) +
   geom_sf(data=sr_shp, fill="grey") + 
   geom_sf(data = six_rivers, aes(fill = cause_text), color = "white", alpha = 0.9) +
@@ -90,7 +90,6 @@ ggplot() +
 
 
 ## time series plots - causes over time 
-
 srf_c %>% as.data.frame %>% 
   rename(year = YEAR_,
          acres=GIS_ACRES) %>% 
@@ -98,7 +97,7 @@ srf_c %>% as.data.frame %>%
   geom_col() 
 
 # filtered years 
-srf_c %>% as.data.frame %>%
+plot_ts <- srf_c %>% as.data.frame %>%
   rename(year = YEAR_,
          acres=GIS_ACRES, 
          cause= cause_text) %>% 
@@ -106,3 +105,6 @@ srf_c %>% as.data.frame %>%
   ggplot(aes(x=year, y=acres, fill=cause)) +
   geom_col() +
   scale_fill_brewer(palette="Set2")
+
+library(patchwork)
+plot_map + plot_ts
