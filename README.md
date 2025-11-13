@@ -10,3 +10,5 @@ files include:
 - six_rivers: shapefile of boundary for Six Rivers National Forest, from USFS 
 
 Editing file for GitHub desktop demo
+
+Adding this line to commit
